@@ -1,40 +1,40 @@
 const fs = require('fs')
 
 class ContenedorArchivo {
-    #productos
-    #ruta
+    productos
+    ruta
     constructor(ruta){
-        this.#ruta = ruta
-        this.#productos = []
+        this.ruta = ruta
+        this.productos = []
     }
 
     async save(objeto){
-        this.#productos.push(objeto)
-        await fs.promises.writeFile(this.#ruta , JSON.stringify(this.#productos))
+        this.productos.push(objeto)
+        await fs.promises.writeFile(this.ruta , JSON.stringify(this.productos))
     }
 
     async getElementById(id){
-        const arrayTemporal = this.#productos = JSON.parse(await fs.promises.readFile(this.#ruta , 'utf-8'))
+        const arrayTemporal = this.productos = JSON.parse(await fs.promises.readFile(this.ruta , 'utf-8'))
         const idItem = arrayTemporal.find((e) => e.id === id)
         return idItem;
     }
 
     async deleteById(id){
-        const arrayTemporal = this.#productos = JSON.parse( await fs.promises.readFile(this.#ruta , 'utf-8'))
+        const arrayTemporal = this.productos = JSON.parse( await fs.promises.readFile(this.ruta , 'utf-8'))
         const idItem = await arrayTemporal.map(obj => obj.id).indexOf(id)
-        this.#productos.splice(idItem, 1)
-        return this.#productos;
+        this.productos.splice(idItem, 1)
+        return this.productos;
     }
 
     async getAll(){
-        this.#productos = JSON.parse(await fs.promises.readFile(this.#ruta, 'utf-8'))
-        return this.#productos;
+        this.productos = JSON.parse(await fs.promises.readFile(this.ruta, 'utf-8'))
+        return this.productos;
     }   
 
     async deleteAll(){
-        this.#productos = JSON.parse( await fs.promises.readFile(this.#ruta , 'utf-8'))
-        this.#productos.splice(0)
-        return this.#productos
+        this.productos = JSON.parse( await fs.promises.readFile(this.ruta , 'utf-8'))
+        this.productos.splice(0)
+        return this.productos
     }        
 }
 
