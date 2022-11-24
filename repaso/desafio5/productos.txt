@@ -1,0 +1,1 @@
+[{"nombre":"regla","precio":"120","imagen":"https://assets.leroymerlin.es/is/image/lmes/17564792-0100/regla-dexter-200mm.jpg?$lmesBgTablet$&fit=constrain,0","id":"3b4f9313-2944-400a-b2ce-2c53ee09d03d"}]

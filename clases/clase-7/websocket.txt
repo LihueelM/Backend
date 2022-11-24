@@ -1,0 +1,19 @@
+Websocket
+Es un protocolo de red basado en TCP que permite establecer una conexion entre redes.
+Enviamos una peticion HTTP especial que pide actualizar la conexion a un websocket. 
+
+El servidor de tipo socket necesita un servidor HTTP nativo de node.js.
+
+POLLING: Cliente constantemente pregunta al servidor si hay una actualizacion
+
+Websocket permite una conexion en tiempo real en donde el servidor avisa al cliente cuando hay un nuevo mensaje
+Cada cliente tiene su propio socket con su identificador, por cada socket de cliente hay uno en servidor
+
+socket.emit: envia informacion al otro extremo del socket
+io.socket.emit: envia info a todos los clientes
+Para que funcione la funcion io en el cliente hay que importar la libreria
+
+
+
+
+libreria socket.io

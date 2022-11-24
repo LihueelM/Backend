@@ -4,7 +4,7 @@ const {ContenedorArchivo} = require('../contenedor')
 const contenedor = new ContenedorArchivo('./productos.txt')
 
 const controladorGetProductos = ({ query }, res) =>{
-    res.json(contenedor);
+    res.json(contenedor.productos);
 }
 
 const controladorPostProductos = (req , res) => {
