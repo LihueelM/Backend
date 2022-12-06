@@ -2,7 +2,7 @@ const socket = io()
 
 //carga de productos
 
-function mostrarMensajes(mensajes){
+async function mostrarMensajes(mensajes){
     const mensajesParaMostrar = mensajes.map(({nombre, precio, imagen}) => {
         return `<li>${nombre}: - $${precio} - <img src="${imagen}" alt="img-default" width='60px'>  </li>`
     })
@@ -21,8 +21,7 @@ socket.on('mensajesActualizados' , mensajes => {
 })
 
 const botonEnviar = document.getElementById('botonEnviar') 
-botonEnviar.addEventListener('click' , e => {
-    e.preventDefault();
+botonEnviar.addEventListener('submit' , e => {
     const inputNombre = document.getElementById('nombre')
     const inputPrecio = document.getElementById('precio')
     const inputThumbnails = document.getElementById('imagen')
@@ -41,7 +40,7 @@ botonEnviar.addEventListener('click' , e => {
 
 //Chat de la pagina
 
-function mostrarMensajesChat(mensajes){
+async function mostrarMensajesChat(mensajes){
     const mensajesParaMostrarChat = mensajes.map(({fecha, autor ,texto}) => {
         return `<li>${fecha} - ${autor}: - ${texto} </li>`
     })
@@ -61,10 +60,9 @@ socket.on('mensajesActualizadosChat' , mensajesChat => {
 
 const botonEnviarMensaje = document.getElementById('botonEnviarMensaje') 
 botonEnviarMensaje.addEventListener('click' , e => {
-    e.preventDefault();
+    e.preventDefault()
     const inputAutor = document.getElementById('autor')
     const inputTexto = document.getElementById('texto')    
-
     if(inputAutor && inputTexto) {
         const mensaje = {
             nombre: inputAutor.value,

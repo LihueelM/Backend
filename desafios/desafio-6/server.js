@@ -3,6 +3,7 @@ const {engine} = require('express-handlebars')
 const {router} = require('./routers/router.js')
 const {Server: HttpServer} = require('http')
 const {Server: IOServer} = require('socket.io')
+const {containerMensajes} = require('./contenedorChat.js')
 
 const app = express();
 const httpServer = new HttpServer(app)
@@ -15,7 +16,7 @@ app.use(express.static('public'))
 //webSocket
 
 const mensajes = []
-const mensajesChat = []
+const mensajesChat = new containerMensajes('./chat.txt')
 
 io.on('connection' , socket => {
     //Carga de productos
@@ -24,15 +25,20 @@ io.on('connection' , socket => {
     socket.on('nuevoMensaje' , mensaje => {
         mensajes.push(mensaje)
         io.sockets.emit('mensajesActualizados' , mensajes)
-    })
+    })    
+})
 
+io.on('connection' , async socket => {
+
+    const mensajes =  await mensajesChat.getAll()
     //chat de pagina
-    socket.emit('mensajesActualizadosChat' ,mensajesChat)
+    socket.emit('mensajesActualizadosChat' ,mensajes)
 
-    socket.on('nuevoMensajeChat' , mensaje => {
+    socket.on('nuevoMensajeChat' , async mensaje => {
         mensaje.fecha = new Date().toLocaleString()
-        mensajesChat.push(mensaje)
-        io.sockets.emit('mensajesActualizadosChat', mensajesChat)
+        await mensajesChat.save(mensaje)
+        const mensajes = await mensajesChat.getAll()
+        io.sockets.emit('mensajesActualizadosChat', mensajes)
 
     })
 })

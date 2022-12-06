@@ -57,7 +57,9 @@ exports.controladorPutProductos = controladorPutProductos;
 function controladorPostProductosWeb (req, res){
     const producto = req.body;
     producto.id = randomUUID();
-    nuevoContenedor.save(producto);    
+    nuevoContenedor.save(producto);
+    res.status(201);
+    res.json(producto);   
 }
 
 async function controladorDatosWeb ( req, res) {
